@@ -11,7 +11,7 @@ import serial
 def init_server():
     #HOST_RPI = '192.168.137.38'
     #PORT = 8089
-    HOST_RPI = '172.30.1.12'
+    HOST_RPI = '172.30.1.36'
     # host = AGV랑 소켓 연결하기위한 HOST_RPI
     PORT = 8080
 
@@ -38,11 +38,10 @@ while True:
         # 들어온 값이 있으면 값을 한 줄 읽음 (BYTE 단위로 받은 상태)
         # BYTE 단위로 받은 response 모습 : b'\xec\x97\x86\xec\x9d\x8c\r\n'
         response = py_serial.readline()
-        print(response,len(response))
             
         # 디코딩 후, 출력 (가장 끝의 \n을 없애주기위해 슬라이싱 사용)
-        print(response[:len(response)-1].decode())
-        if(response[:len(response)-1].decode() == 1):
+        value = response[:len(response)-1].decode()
+        if(int(value) == 1):
             cmd = 1
             cmd_byte = struct.pack('!B', cmd)
             client_cor.sendall(cmd_byte)

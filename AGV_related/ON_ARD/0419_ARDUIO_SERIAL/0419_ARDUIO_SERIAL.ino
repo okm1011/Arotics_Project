@@ -20,7 +20,7 @@ void setup() {
 void loop() {
   
   if(digitalRead(input_plc) == HIGH){
-    Serial.println(1);
+    Serial.println(int(1));
     delay(1000);
   }
 
